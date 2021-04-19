@@ -17,14 +17,34 @@ object main{
   Logger.getLogger("org.spark-project").setLevel(Level.WARN)
 
   def LubyMIS(g_in: Graph[Int, Int]): Graph[Int, Int] = {
+    val r = scala.util.Random
+    var remaining_vertices = 2
+    var g = g_in
+
     while (remaining_vertices >= 1) {
         // To Implement
     }
+    return g
   }
 
 
   def verifyMIS(g_in: Graph[Int, Int]): Boolean = {
     // To Implement
+    var g = g_in;
+    val vertices = g.aggregateMessages[Int]( 
+    	triplet => {
+    		if (triplet.srcAttr == triplet.dstAttr) {
+    			triplet.sendToDst(1); 
+    			triplet.sendToSrc(1);
+    		} else {
+    			triplet.sendToDst(0); 
+    			triplet.sendToSrc(0);
+    		}
+    	},
+    	(a, b) => (a + b)
+    );
+    //println(vertices.map(v => v._2).reduce((a,b)=>a+b));
+	return (vertices.map(v => v._2).reduce((a,b)=>a+b) == 0);
   }
 
 

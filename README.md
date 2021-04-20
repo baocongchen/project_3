@@ -3,19 +3,8 @@
 Collaborators: Baichuan Guo and Byungmoo Kim
 
 
-## Spark's GraphX API
-This project will familiarize you with the [GraphX API](https://spark.apache.org/docs/latest/graphx-programming-guide.html) offered by Spark.  
 
-You'll be implementing Luby's maximal independent set (MIS) algorithm and a program to verify MIS. In the program skeleton of `main.scala`, the corresponding functions are `LubyMIS` and `verifyMIS`, respectively.  
-
-## Relevant data
-
-You can find the TAR file containing Project 3's data (12 CSV files) [here](https://drive.google.com/file/d/1lBEztkL5mikmiLQI2-QrwJPwJP-R8g7v/view?usp=sharing). Download and expand the TAR file for local processing. For processing in the cloud, refer to the steps for creating a storage bucket in [Project 1](https://github.com/CSCI3390/project_1) and upload `twitter_original_edges.csv`, the file you'll need to access in GCP.
-
-`twitter_original_edges.csv` contains the social network graph of Twitter (~1.32 GB). You've also been provided truncated versions of the graph in files with the naming convention `twitter_x_edges.csv`, where the graph in that file consists of the first `x` vertices (e.g. `twitter_100_edges.csv` holds the first 100 vertices of the graph). In addition, you'll find some smaller graphs meant to expediate testing (`small_edges.csv` and `line_100_edges.csv`).  
-
-## Calculating and reporting your findings
-You'll be submitting a report along with your code that provides commentary on the tasks below.  
+## REPORT 
 
 1. **(4 points)** Implement the `verifyMIS` function. The function accepts a Graph[Int, Int] object as its input. Each vertex of the graph is labeled with 1 or -1, indicating whether or not a vertex is in the MIS. `verifyMIS` should return `true` if the labeled vertices form an MIS and `false` otherwise. To execute the function, run the following:
 ```

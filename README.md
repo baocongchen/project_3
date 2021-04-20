@@ -52,6 +52,8 @@ There are 4 iterations.
 - Iteration 4: remaining vertices is 423
 - Iteration 5: remaining vertices is 0
 
+Verify yes.
+
 Luby's algorithm is completed in 620s.
 
 b. Run `LubyMIS` on `twitter_original_edges.csv` with 4x2 cores and then 2x2 cores. Compare the running times between the 3 jobs with varying core specifications that you submitted in **3a** and **3b**.

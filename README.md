@@ -54,11 +54,11 @@ Apply `LubyMIS` locally on the graph files listed below and report the number of
 3. **(3 points)**  
 a. Run `LubyMIS` on `twitter_original_edges.csv` in GCP with 3x4 cores. Report the number of iterations, running time, and remaining active vertices (i.e. vertices whose status has yet to be determined) at the end of **each iteration**. You may need to include additional print statements in `LubyMIS` in order to acquire this information. Finally, verify your outputs with `verifyMIS`.  
 There are 5 iterations.
-Iteration 1: remaining vertices is 6708559
-Iteration 2: remaining vertices is 33500
-Iteration 3: remaining vertices is 357
-Iteration 4: remaining vertices is 1
-Iteration 5: remaining vertices is 0
+- Iteration 1: remaining vertices is 6708559
+- Iteration 2: remaining vertices is 33500
+- Iteration 3: remaining vertices is 357
+- Iteration 4: remaining vertices is 1
+- Iteration 5: remaining vertices is 0
 Luby's algorithm is completed in 763s.
 
 b. Run `LubyMIS` on `twitter_original_edges.csv` with 4x2 cores and then 2x2 cores. Compare the running times between the 3 jobs with varying core specifications that you submitted in **3a** and **3b**.

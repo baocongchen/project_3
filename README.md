@@ -45,14 +45,22 @@ spark-submit --class "project_3.main" --master "local[*]" target/scala-2.12/proj
 Apply `LubyMIS` locally on the graph files listed below and report the number of iterations and running time that the MIS algorithm consumes for **each file**. You may need to include additional print statements in `LubyMIS` in order to acquire this information. Finally, verify your outputs with `verifyMIS`.
 |        Graph file       |   Running time  | Verification | Iterations |
 | ----------------------- |-----------------|--------------|-------|
-| small_edges.csv         |        3s       |      yes     |  2    |
-| line_100_edges.csv      |        4s       |      yes     |  3    |
-| twitter_100_edges.csv   |        4s       |      yes     |  3    |
-| twitter_1000_edges.csv  |        4s       |      yes     |  3    |
-| twitter_10000_edges.csv |        8s       |      yes     |  4    |
+| small_edges.csv         |        3s       |      yes     |  1    |
+| line_100_edges.csv      |        4s       |      yes     |  2    |
+| twitter_100_edges.csv   |        4s       |      yes     |  2    |
+| twitter_1000_edges.csv  |        4s       |      yes     |  2    |
+| twitter_10000_edges.csv |        8s       |      yes     |  3    |
 
 3. **(3 points)**  
 a. Run `LubyMIS` on `twitter_original_edges.csv` in GCP with 3x4 cores. Report the number of iterations, running time, and remaining active vertices (i.e. vertices whose status has yet to be determined) at the end of **each iteration**. You may need to include additional print statements in `LubyMIS` in order to acquire this information. Finally, verify your outputs with `verifyMIS`.  
+There are 5 iterations.
+Iteration 1: remaining vertices is 6708559
+Iteration 2: remaining vertices is 33500
+Iteration 3: remaining vertices is 357
+Iteration 4: remaining vertices is 1
+Iteration 5: remaining vertices is 0
+Luby's algorithm is completed in 763s.
+
 b. Run `LubyMIS` on `twitter_original_edges.csv` with 4x2 cores and then 2x2 cores. Compare the running times between the 3 jobs with varying core specifications that you submitted in **3a** and **3b**.
 
 ## Submission via GitHub

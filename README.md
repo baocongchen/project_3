@@ -55,4 +55,5 @@ There are 4 iterations.
 Luby's algorithm is completed in 620s.
 
 b. Run `LubyMIS` on `twitter_original_edges.csv` with 4x2 cores and then 2x2 cores. Compare the running times between the 3 jobs with varying core specifications that you submitted in **3a** and **3b**.
+Job keeps getting errors. Cannot finish.
 

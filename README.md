@@ -2,6 +2,8 @@
 ## Group 1
 Collaborators: Baichuan Guo and Byungmoo Kim
 
+Link to code: https://github.com/baocongchen/project_3/blob/main/src/main/scala/project_3/main.scala
+
 
 
 ## REPORT 

@@ -17,14 +17,40 @@ object main{
   Logger.getLogger("org.spark-project").setLevel(Level.WARN)
 
   def LubyMIS(g_in: Graph[Int, Int]): Graph[Int, Int] = {
-    val r = scala.util.Random
-    var remaining_vertices = 2
-    var g = g_in
-
+    val r = scala.util.Random;
+    var remaining_vertices = 2;
+    var g = g_in.mapVertices((id, vd) => (0.asInstanceOf[Int], 0.asInstanceOf[Float]));
+    var loop = 1;
     while (remaining_vertices >= 1) {
-        // To Implement
+        g = g.mapVertices((id, vd) => (vd._1, r.nextFloat()));
+        val v = g.aggregateMessages[(Int, Float)](
+                e => {
+                  e.sendToDst(if ((e.srcAttr._2 + e.srcAttr._1) > (e.dstAttr._2 + e.dstAttr._1)) (0, 0) else (1, 0));
+                  e.sendToSrc(if ((e.srcAttr._2 + e.srcAttr._1) > (e.dstAttr._2 + e.dstAttr._1)) (1, 0) else (0, 0))
+                },
+                (msg1, msg2) => if (msg1._1 == 1 && msg2._1 == 1) (1, 0) else (0, 0)
+              );
+
+
+
+        val g1 = Graph(v, g.edges);
+
+        val v2 = g1.aggregateMessages[(Int,Float)](
+            e => {
+                e.sendToDst(if (e.dstAttr._1 == 1) (1, 0) else (if (e.srcAttr._1 == 1) (-1, 0) else (0, 0)));
+                e.sendToSrc(if (e.srcAttr._1 == 1) (1, 0) else (if (e.dstAttr._1 == 1) (-1, 0) else (0, 0)))
+              },
+              (msg1, msg2) => if (msg1._1 == 1 || msg2._1 == 1) (1, 0) else (if (msg1._1 == -1 || msg2._1 == -1) (-1, 0) else (0, 0))
+            )
+
+        g = Graph(v2, g.edges);
+        g.cache();
+        remaining_vertices = g.vertices.filter({ case (id, x) => (x._1 == 0) }).count().toInt;
+        println("Remaining vertices: " + remaining_vertices)
+        loop = loop + 1;
     }
-    return g
+    println("Luby's algorithm completed in " + (loop-1) + " loops")
+    return g.mapVertices((id, vd) => (vd._1))
   }
 
 
@@ -33,7 +59,7 @@ object main{
     var g = g_in;
     val vertices = g.aggregateMessages[Int]( 
     	triplet => {
-    		if (triplet.srcAttr == triplet.dstAttr) {
+    		if (triplet.srcAttr == 1 & triplet.srcAttr == triplet.dstAttr) {
     			triplet.sendToDst(1); 
     			triplet.sendToSrc(1);
     		} else {
@@ -65,7 +91,8 @@ object main{
         sys.exit(1)
       }
       val startTimeMillis = System.currentTimeMillis()
-      val edges = sc.textFile(args(1)).map(line => {val x = line.split(","); Edge(x(0).toLong, x(1).toLong , 1)} )
+      //val edges = sc.textFile(args(1)).map(line => {val x = line.split(","); Edge(x(0).toLong, x(1).toLong , 1)} )
+      val edges = sc.textFile(args(1)).map(line => {val x = line.split(","); Edge(x(0).toLong, x(1).toLong , 1)} ).filter({case Edge(a,b,c) => a!=b})
       val g = Graph.fromEdges[Int, Int](edges, 0, edgeStorageLevel = StorageLevel.MEMORY_AND_DISK, vertexStorageLevel = StorageLevel.MEMORY_AND_DISK)
       val g2 = LubyMIS(g)
 
